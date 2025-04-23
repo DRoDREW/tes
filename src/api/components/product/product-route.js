@@ -2,12 +2,22 @@ const express = require('express');
 const router = express.Router();
 const productController = require('./product-controller');
 
-// Definisikan semua route
+// Get all products with optional limit and sort
 router.get('/', productController.getAllProducts);
-router.get('/:id', productController.getProductById);
+
+// Get products by category - Must be before /:id to avoid conflict
+router.get('/category/:categoryName', productController.getProductsByCategory);
+
+// Get specific product by ID
+router.get('/:id', productController.getProduct);
+
+// Create new product
 router.post('/', productController.createProduct);
+
+// Update product
 router.put('/:id', productController.updateProduct);
+
+// Delete product
 router.delete('/:id', productController.deleteProduct);
 
-// Pastikan ini
-module.exports = router; // ✅ Export router langsung
+module.exports = router;
