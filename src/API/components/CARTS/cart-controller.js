@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Cart = require('./cartModel');
+const Cart = require('./cart-model');
 
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
@@ -32,15 +32,25 @@ exports.getSingleCart = async (req, res) => {
 // POST cart baru
 exports.addCart = async (req, res) => {
     try {
-        const { id, userId, date, products } = req.body;
+        const { user_id, product_id, quantity } = req.body;
 
-        const newCart = new Cart({ id, userId, date, products });
+        const newCart = new Cart({
+            user_id,
+            product_id,
+            quantity
+        });
+
         const savedCart = await newCart.save();
-
-        res.status(201).json({ message: 'Cart dibuat.', cart: savedCart });
+        res.status(201).json({ 
+            message: 'Cart dibuat.', 
+            cart: savedCart 
+        });
     } catch (error) {
-        console.error('Gagal membuat cart' , error); 
-        res.status(500).json({ message: 'Terjadi kesalahan', error });
+        console.error('Gagal membuat cart:', error);
+        res.status(500).json({ 
+            message: 'Terjadi kesalahan', 
+            error: error.message 
+        });
     }
 };
 
