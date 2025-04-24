@@ -1,6 +1,6 @@
-const Cart = require('./cartModel');
-const User = require('../user/userModel');
-const Product = require('../product/productModel');
+const Cart = require('./cart-model');
+const User = require('../USERS/users-model');
+const Product = require('../PRODUCTS/products-model');
 const mongoose = require('mongoose');
 
 exports.addCart = async (req, res) => {
@@ -38,32 +38,54 @@ exports.addCart = async (req, res) => {
 
         // Create new cart
         const cart = new Cart({
-            user_id: new mongoose.Types.ObjectId(user_id),
-            product_id: new mongoose.Types.ObjectId(product_id),
-            quantity: quantity
+            userId: user_id,
+            products: [{
+                productId: product_id,
+                quantity: quantity,
+                price: product.price
+            }],
+            totalAmount: totalPrice
         });
 
-        const savedCart = await cart.save();
+        await cart.save();
+
+        // Populate cart with user and product details
+        const populatedCart = await Cart.findById(cart._id)
+            .populate('userId', 'username email name')  // Include name field
+            .populate('products.productId', 'title price');
 
         res.status(201).json({
             status: 'success',
             data: {
-                id: savedCart._id,
-                user_id: savedCart.user_id,
-                product_details: {
-                    name: product.name,
-                    price: product.price,
-                    quantity: quantity,
-                    total_price: totalPrice
-                },
-                created_at: savedCart.created_at
+                cart: {
+                    _id: populatedCart._id,
+                    user: {
+                        _id: populatedCart.userId._id,
+                        username: populatedCart.userId.username,
+                        email: populatedCart.userId.email,
+                        name: populatedCart.userId.name  // User's name included
+                    },
+                    products: populatedCart.products.map(item => ({
+                        product: {
+                            _id: item.productId._id,
+                            title: item.productId.title,
+                            price: item.price
+                        },
+                        quantity: item.quantity,
+                        subtotal: item.price * item.quantity
+                    })),
+                    totalAmount: populatedCart.totalAmount,
+                    created_at: populatedCart.created_at
+                }
             }
         });
 
     } catch (error) {
+        console.error('Cart creation error:', error);
         res.status(500).json({
             status: 'error',
-            message: error.message
+            message: 'Failed to create cart',
+            error: error.message
         });
     }
 };

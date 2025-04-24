@@ -1,4 +1,4 @@
-const { Carts } = require('../../../models');
+const { Carts } = require('../../../MODELS');
 
 //Ambil semua cart
 async function getAllCarts(startDate, endDate, limit, sort) {
