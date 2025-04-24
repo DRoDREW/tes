@@ -1,6 +1,6 @@
 // src/api/components/user/user-controller.js
 
-const User = require('./users-model');
+const User = require('./user-model');
 
 exports.getAllUsers = async (req, res) => {
   try {

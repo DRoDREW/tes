@@ -1,4 +1,4 @@
-const client = require('../../../CORE/config').mongoClient;
+const client = require('../../../core/config').mongoClient;
 const { ObjectId } = require('mongodb');
 
 async function getCollection() {

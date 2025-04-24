@@ -1,36 +1,23 @@
 {
-  "name": "backend-programming-template-2025",
+  "name": "modular-rest-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "REST API modular structure with Express and MongoDB",
   "main": "src/index.js",
+  "type": "commonjs",
   "scripts": {
-    "dev": "nodemon ./src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "eslint": "eslint src/**"
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
   },
-  "author": "Janson Hendryli",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.1.1",
-    "body-parser": "^1.20.3",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "express-async-errors": "^3.1.1",
-    "method-override": "^3.0.0",
-    "mongoose": "^8.12.2",
-    "pino": "^9.6.0",
-    "pino-http": "^10.4.0"
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongodb": "^5.6.0",
+    "mongoose": "^8.13.2"
   },
   "devDependencies": {
-    "@faker-js/faker": "^9.6.0",
-    "eslint": "^8.57.1",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-prettier": "^10.1.1",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-prettier": "^5.2.3",
-    "nodemon": "^3.1.9",
-    "pino-pretty": "^13.0.0",
-    "prettier": "^3.5.3"
+    "nodemon": "^3.1.9"
   }
 }

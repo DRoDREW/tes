@@ -1,6 +1,6 @@
 // src/api/components/product/product-controller.js
 
-const Product = require('./products-model');
+const Product = require('./product-model');
 
 exports.getAllProducts = async (req, res) => {
     try {

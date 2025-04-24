@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const productController = require('./products-controller');
+const productController = require('./product-controller');
 
 // Get all products with optional limit and sort
 router.get('/', productController.getAllProducts);
